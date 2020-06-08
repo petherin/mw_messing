@@ -7,17 +7,17 @@ import (
 	"testing"
 )
 
-func TestTokenHandler(t *testing.T) {
+func TestHandlerWithMiddleware(t *testing.T) {
 	// Create a request to pass to our handler. We don't have any query parameters for now, so we'll
 	// pass 'nil' as the third parameter.
-	req, err := http.NewRequest("GET", "/endpoint", nil)
+	req, err := http.NewRequest("GET", "/", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	// We create a ResponseRecorder (which satisfies http.ResponseWriter) to record the response.
 	rr := httptest.NewRecorder()
-	mw := Handler()
+	mw := NewHandlers()
 	mw.ServeHTTP(rr, req)
 
 	log.Println(rr.Code)
